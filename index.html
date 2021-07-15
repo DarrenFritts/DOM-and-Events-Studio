@@ -3,6 +3,15 @@
     <head>
         <title>Flight Simulator</title>
         <link rel = "stylesheet" type = "text/css" href = "styles.css" />
+        
+        <!--1. Use the window load event to ensure all elements have loaded before attaching event handlers.-->
+        <!-- <script>
+            // add load event handler to window
+            window.addEventListener("load", function() {
+                // put DOM code here to ensure elements have been loaded
+                console.log('window loaded');
+            });
+         </script> -->
         <script src = "scripts.js"></script>
     </head>
     <body>
@@ -20,13 +29,13 @@
                 <p>Houston, we are ready when you are!</p>
             </div>
             <div id = "shuttleBackground" style = "position: relative;">
-                <img src = "LaunchCode_rocketline_white.png" height = "75" width = "75" id = "rocket"/>
+                <img src = "LaunchCode_rocketline_white.png" height = "75" width = "75" id = "rocket";/>
             </div>
             <div style = "text-align: center; display: inline-block;">
-                    <button>Up</button>
-                    <button>Down</button>
-                    <button>Right</button>
-                    <button>Left</button>
+                    <button id = "up">Up</button>
+                    <button id = "down">Down</button>
+                    <button id = "right">Right</button>
+                    <button id = "left">Left</button>
                     <h3>Space Shuttle Height</h3>
                     <p id="spaceShuttleHeight">0</p><p style = "display: inline-block;"> miles</p>
             </div>
