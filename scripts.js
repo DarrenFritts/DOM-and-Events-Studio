@@ -13,6 +13,8 @@ function init () {
     const left = document.getElementById("left");
     const right = document.getElementById("right");
 
+    let shuttleHeight = 0;
+
     // 2. When the "Take off" button is clicked, the following should happen:
     // a. A window confirm should let the user know "Confirm that the shuttle is ready for takeoff." 
     //    If the shuttle is ready for liftoff, then add parts b-d.
@@ -24,7 +26,8 @@ function init () {
         if(answer) {
         document.getElementById("flightStatus").innerHTML = "Shuttle in flight.";
         document.getElementById("shuttleBackground").style.background = "blue";
-        document.getElementById("spaceShuttleHeight").innerHTML = "10,000"
+        shuttleHeight = 10000;
+        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeight;
         }
     }
     takeOff.addEventListener("click", takeOffClicked);
@@ -38,7 +41,12 @@ function init () {
         window.alert("The shuttle is landing. Landing gear engaged.");
         document.getElementById("flightStatus").innerHTML = "The shuttle has landed.";
         document.getElementById("shuttleBackground").style.background = "green";
-        document.getElementById("spaceShuttleHeight").innerHTML = "0"
+        shuttleHeight = 0;
+        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeight;
+        document.getElementById("rocket").style.top = 10 + "px";
+        document.getElementById("rocket").style.left = 0 + "px";
+        yPos = 10;
+        xPos = 0;
     }
     landing.addEventListener("click", landingClicked);
 
@@ -53,7 +61,12 @@ function init () {
         if(answer) {
         document.getElementById("flightStatus").innerHTML = "Mission aborted.";
         document.getElementById("shuttleBackground").style.background = "green";
-        document.getElementById("spaceShuttleHeight").innerHTML = "0"
+        document.getElementById("shuttleBackground").style.background = "green";
+        shuttleHeight = 0;
+        document.getElementById("rocket").style.top = 10 + "px";
+        document.getElementById("rocket").style.left = 0 + "px";
+        yPos = 10;
+        xPos = 0;
         }
     }
     missionAbort.addEventListener("click", missionAbortClicked);
@@ -61,36 +74,72 @@ function init () {
     // 5. When the "Up", "Down", "Right", and "Left" buttons are clicked, the following should happen:
     // a. The rocket image should move 10 px in the direction of the button that was clicked.
     // b. If the "Up" or "Down" buttons were clicked, then the shuttle height should increase or decrease by 10,000 miles.
+    let yPos = 10;
+    let xPos = 0;
     function upClicked() {
-        let shuttleHeight = Number(document.getElementById("spaceShuttleHeight").innerHTML);
-        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeight + 10000;
+        shuttleHeightAfter = shuttleHeight + 10000;
+        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeightAfter;
+        shuttleHeight += 10000;
+        console.log("yPos =", yPos);
+        yPosAfter = yPos -10;
+        console.log("upPosAfter =", yPosAfter);
         document.getElementById("rocket").style.position = "relative";
-        document.getElementById("rocket").style.top = "-10px";
+        document.getElementById("rocket").style.top = yPosAfter + "px";
+        yPos -= 10;
+        if(yPosAfter < 5) {
+            yPos = 5;
+            yPosAfter = 5;
+        }
     }
     up.addEventListener("click", upClicked);
 
     function downClicked() {
-        // let rect = document.getElementById("rocket").getBoundingClientRect();
-        // console.log(rect.top, rect.bottom);
-        let shuttleHeight = Number(document.getElementById("spaceShuttleHeight").innerHTML);
-        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeight - 10000;
+        shuttleHeightAfter = shuttleHeight - 10000;
+        document.getElementById("spaceShuttleHeight").innerHTML = shuttleHeightAfter;
+        shuttleHeight -= 10000;
+        console.log("yPos =", yPos);
+        yPosAfter = yPos +10;
+        console.log("yPosAfter =", yPosAfter);
         document.getElementById("rocket").style.position = "relative";
-        document.getElementById("rocket").style.bottom = "-10px";
+        document.getElementById("rocket").style.top = yPosAfter + "px";
+        yPos += 10;
+        if(yPosAfter > 240) {
+            yPos = 240;
+        }
     }
     down.addEventListener("click", downClicked);
 
     function rightClicked() {
+        console.log("xPos =", xPos);
+        xPosAfter = xPos +10;
+        console.log("xPosAfter =", xPosAfter);
         document.getElementById("rocket").style.position = "relative";
-        document.getElementById("rocket").style.right = "-10px";
+        document.getElementById("rocket").style.left = xPosAfter + "px";
+        xPos += 10;
+        if(xPos > 175) {
+            xPos = 175;
+        }
     }
     right.addEventListener("click", rightClicked);
 
     function leftClicked() {
+        console.log("xPos =", xPos);
+        xPosAfter = xPos -10;
+        console.log("xPosAfter =", xPosAfter);
         document.getElementById("rocket").style.position = "relative";
-        document.getElementById("rocket").style.left = "-10px";
+        document.getElementById("rocket").style.left = xPosAfter + "px";
+        xPos -= 10;
+        if(xPos < -175) {
+            xPos = -175;
+        }
     }
     left.addEventListener("click", leftClicked);
 
+    // Bonus Mission
+    // 1. Keep the rocket from flying off of the background.
+    // DONE !!!
+    // 2. Return the rocket to its original position on the background when it has been landed or the mission was aborted.
+    // DONE !!!
 }
 
 window.addEventListener("load", init);
