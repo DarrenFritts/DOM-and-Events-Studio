@@ -2,7 +2,7 @@
 // Remember to pay attention to page loading!
 
 // 1. Use the window load event to ensure all elements have loaded before attaching event handlers.
-function init () {
+window.addEventListener("load", function () {
     const takeOff = document.getElementById("takeoff");
     const flightStatus = document.getElementById("flightStatus");
     const spaceShuttleHeight = document.getElementById("spaceShuttleHeight");
@@ -21,7 +21,7 @@ function init () {
     // b. The flight status should change to "Shuttle in flight."
     // c. The background color of the shuttle flight screen (id = "shuttleBackground") should change from green to blue.
     function takeOffClicked() {
-        answer = window.confirm("Confirm that the shuttle is ready for takeoff.");
+        const answer = window.confirm("Confirm that the shuttle is ready for takeoff.");
 
         if(answer) {
         document.getElementById("flightStatus").innerHTML = "Shuttle in flight.";
@@ -56,7 +56,7 @@ function init () {
     // c. The background color of the shuttle flight screen should change from blue to green.
     // d. The shuttle height should go to 0.
     function missionAbortClicked() {
-        answer = window.confirm("Confirm that you want to abort the mission.");
+        const answer = window.confirm("Confirm that you want to abort the mission.");
 
         if(answer) {
         document.getElementById("flightStatus").innerHTML = "Mission aborted.";
@@ -137,9 +137,7 @@ function init () {
 
     // Bonus Mission
     // 1. Keep the rocket from flying off of the background.
-    // DONE !!!
+    // DONE !!! Integrated into the code above
     // 2. Return the rocket to its original position on the background when it has been landed or the mission was aborted.
-    // DONE !!!
-}
-
-window.addEventListener("load", init);
+    // DONE !!! Integrated into the code above
+});
